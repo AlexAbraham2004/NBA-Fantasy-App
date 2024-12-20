@@ -1,0 +1,19 @@
+{
+  "name": "nba-fantasy-app",
+  "version": "1.0.0",
+  "description": "This project will pull from a public API and use the information to update me on my fantasy basketball team",
+  "main": "index.js",
+  "type": "module",
+  "dependencies": {
+    "axios": "^1.7.9",
+    "body-parser": "^1.20.3",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
