@@ -29,7 +29,25 @@
                 <li>Kevin Durant - Phoenix Suns</li>
                 <li>Stephen Curry - Golden State Warriors</li>
                 <li>Giannis Antetokounmpo - Milwaukee Bucks</li>
+                
             </ul>
+            <div style="border: 1rem solid black;">
+                <% if (players) { %>
+                    <pre><%= players %></pre>
+                <% } else { %>
+                    <p>No players data available.</p>
+                <% } %>
+            </div>
+            <div style="border: 1rem solid black;">
+                <% if (games) { %>
+                    <pre><%= games %></pre>
+                <% } else { %>
+                    <p>No Games data available.</p>
+                <% } %>
+            </div>
+
+
+
         </section>
         <section id="create-team">
             <h2>Create Your Team</h2>
