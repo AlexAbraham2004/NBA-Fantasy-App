@@ -1,54 +1,31 @@
-<!DOCTYPE HTML>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/styles/styles.css">
-    <title>NBA Fantasy</title>
+<%- include("partials/header.ejs")%>
 
-</head>
-<body>
-    <header class="header">
-        <h1>NBA Fantasy</h1>
-        <nav class="navbar">
-            <a href="#home">Home</a>
-            <a href="#players">Players</a>
-            <a href="#create-team">Create Team</a>
-            <a href="#standings">Standings</a>
-        </nav>
-    </header>
+
     <main class="main-content">
+        
         <section id="home">
             <h2>Welcome to NBA Fantasy</h2>
             <p>Build your dream team and compete with friends!</p>
         </section>
+
         <section id="players">
             <h2>Player List</h2>
-            <ul>
-                <li>LeBron James - Los Angeles Lakers</li>
-                <li>Kevin Durant - Phoenix Suns</li>
-                <li>Stephen Curry - Golden State Warriors</li>
-                <li>Giannis Antetokounmpo - Milwaukee Bucks</li>
-                
-            </ul>
-            <div style="border: 1rem solid black;">
+            <div>
                 <% if (players) { %>
                     <pre><%= players %></pre>
                 <% } else { %>
                     <p>No players data available.</p>
                 <% } %>
             </div>
-            <div style="border: 1rem solid black;">
+            <div>
                 <% if (games) { %>
                     <pre><%= games %></pre>
                 <% } else { %>
                     <p>No Games data available.</p>
                 <% } %>
             </div>
-
-
-
         </section>
+
         <section id="create-team">
             <h2>Create Your Team</h2>
             <form>
@@ -57,13 +34,12 @@
                 <button type="submit">Save Team</button>
             </form>
         </section>
+
         <section id="standings">
             <h2>Standings</h2>
             <p>Coming Soon!</p>
         </section>
     </main>
-    <footer class="footer">
-        <p>&copy; 2024 NBA Fantasy App. All Rights Reserved.</p>
-    </footer>
-</body>
-</html>
+
+
+<%- include("partials/footer.ejs")%>

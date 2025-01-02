@@ -1,20 +1,27 @@
 import express from "express";
 import axios from "axios";
 import bodyParser from "body-parser";
-import dotenv from "dotenv"
+import dotenv from "dotenv";
+import serveFavicon from "serve-favicon";
+import { fileURLToPath } from "url";
+import path from "path";
 
-dotenv.config({path: '.env.local'});
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-const port = 3000; 
-const app = express(); 
-const API_URL = "https://api.balldontlie.io/v1/"
+dotenv.config({ path: ".env.local" });
+
+const port = 3000;
+const app = express();
+const API_URL = "https://api.balldontlie.io/v1/";
 
 app.use(express.static("public"));
+app.use(serveFavicon(path.join(__dirname, "public", "favicon.ico")));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const config = {
     headers: { Authorization: `${process.env.NBA_AUTHENTICATION}` },
-};  
+};
 
 app.get('/', async (req,res) => {
     try{
@@ -31,40 +38,12 @@ app.get('/', async (req,res) => {
             {
                 players: JSON.stringify(error.response?.data || { error: "Failed to load players" }),
                 games: JSON.stringify(error.response?.data || { error: "Failed to load games" }),
-                
             }
-        
         )
         console.log(players);
     }
 });
 
-app.post("/get-games", async (req, res) => {
-    console.log(req.body.id)
-
-    const searchId = req.body.id; 
-    try{
-        const result = await axios.get(API_URL + "games?" + searchId, config)
-        res.render("index.ejs", {content: JSON.stringify(result.data)});
-    }catch{
-        res.render("index.ejs", {content: JSON.stringify(error.response.data)})
-    }
-});
-
-app.post("/get-players", async (req, res) => {
-    console.log(req.body.id)
-    const searchId = req.body.id; 
-    try{
-        const result = await axios.get(API_URL + "players?" + searchId, config)
-        res.render("index.ejs", {content: JSON.stringify(result.data)});
-    }catch{
-        res.render("index.ejs", {content: JSON.stringify(error.response.data)})
-    }
-});
-
-
-
 app.listen(port, () => {
     console.log(`Server running on port: ${port}`);
 });
-  
