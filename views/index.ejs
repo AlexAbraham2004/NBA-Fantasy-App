@@ -1,45 +1,49 @@
 <%- include("partials/header.ejs")%>
 
-
-    <main class="main-content">
-        
-        <section id="home">
-            <h2>Welcome to NBA Fantasy</h2>
-            <p>Build your dream team and compete with friends!</p>
-        </section>
-
-        <section id="players">
-            <h2>Player List</h2>
-            <div>
-                <% if (players) { %>
-                    <pre><%= players %></pre>
-                <% } else { %>
-                    <p>No players data available.</p>
-                <% } %>
+<main class="main-content">
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Welcome to NBA Fantasy Tracker!</h1>
+            <p>
+                Your ultimate platform for real-time updates on your favorite NBA players. 
+                Get the latest game stats, including points scored, positions played, rebounds, assists, 
+                and more. Whether you're a fantasy league enthusiast or a passionate basketball fan, 
+                we've got you covered. Dive in, track your team, and dominate your league!
+            </p>
+            <div class="hero-buttons">
+                <a href="/players" class="btn">View Players</a>
+                <a href="/games" class="btn">View Games</a>
             </div>
-            <div>
-                <% if (games) { %>
-                    <pre><%= games %></pre>
-                <% } else { %>
-                    <p>No Games data available.</p>
-                <% } %>
+        </div>
+        <div class="hero-image">
+            <img src="/images/hero-image.jpg" alt="Basketball Players" />
+        </div>
+    </section>
+
+    <!-- My Players Section -->
+    <section id="players" class="players-section">
+        <h2>My Players</h2>
+    </section>
+
+    <!-- Most Common Players Section -->
+    <section id="complayers" class="common-players-section">
+        <h2>Most Common Players</h2>
+        <div class="common-players-list">
+            <div class="player-card">
+                <img src="/path-to-lebron-image.jpg" alt="LeBron James" />
+                <h3>LeBron James</h3>
             </div>
-        </section>
-
-        <section id="create-team">
-            <h2>Create Your Team</h2>
-            <form>
-                <label for="team-name">Team Name:</label>
-                <input type="text" id="team-name" name="team-name" placeholder="Enter your team name" required>
-                <button type="submit">Save Team</button>
-            </form>
-        </section>
-
-        <section id="standings">
-            <h2>Standings</h2>
-            <p>Coming Soon!</p>
-        </section>
-    </main>
-
+            <div class="player-card">
+                <img src="/path-to-steph-image.jpg" alt="Steph Curry" />
+                <h3>Steph Curry</h3>
+            </div>
+            <div class="player-card">
+                <img src="/path-to-durant-image.jpg" alt="Kevin Durant" />
+                <h3>Kevin Durant</h3>
+            </div>
+        </div>
+    </section>
+</main>
 
 <%- include("partials/footer.ejs")%>

@@ -1,0 +1,43 @@
+<%- include("../partials/header.ejs") %>
+
+<main class="main-content">
+    <!-- Player Search Section -->
+    <section id="search-players">
+        <h2>Search Players</h2>
+        <form action="/players" method="GET" class="search-form">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" placeholder="Enter player name">
+
+            <label for="position">Position:</label>
+            <input type="text" id="position" name="position" placeholder="Enter position (e.g., G, F, C)">
+
+            <label for="height">Height:</label>
+            <input type="text" id="height" name="height" placeholder="Enter height (e.g., 6-5)">
+
+            <label for="draft-year">Draft Year:</label>
+            <input type="number" id="draft-year" name="draftYear" placeholder="Enter draft year">
+
+            <button type="submit">Search</button>
+        </form>
+    </section>
+
+    <!-- Players List Section -->
+    <section id="players-list">
+        <h2>Player List</h2>
+        <div class="player-cards">
+            <% players.forEach(player => { %>
+                <div class="player-card">
+                    <h3><%= player.first_name %> <%= player.last_name %></h3>
+                    <p>Position: <%= player.position %></p>
+                    <p>Height: <%= player.height %></p>
+                    <p>Weight: <%= player.weight %> lbs</p>
+                    <p>Draft Year: <%= player.draft_year || 'N/A' %></p>
+                    <p>Team: <%= player.team.full_name %> (<%= player.team.abbreviation %>)</p>
+                    <button class="watchlist-btn">Add to Watchlist</button>
+                </div>
+            <% }) %>
+        </div>
+    </section>
+</main>
+
+<%- include("../partials/footer.ejs") %>

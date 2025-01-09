@@ -1,0 +1,20 @@
+<%- include("../partials/header.ejs") %>
+
+<main class="main-content">
+    <!-- Games List Section -->
+    <section id="games-list">
+        <h2>Game Data</h2>
+        <div class="game-cards">
+            <% games.forEach(game => { %>
+                <div class="game-card">
+                    <h3><%= game.home_team.full_name %> vs <%= game.visitor_team.full_name %></h3>
+                    <p>Date: <%= game.date %></p>
+                    <p>Season: <%= game.season %></p>
+                    <p>Final Score: <%= game.home_team_score %> - <%= game.visitor_team_score %></p>
+                </div>
+            <% }) %>
+        </div>
+    </section>
+</main>
+
+<%- include("../partials/footer.ejs") %>
