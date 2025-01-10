@@ -1,0 +1,120 @@
+/* General Reset */
+body, h1, h2, p, ul, li, input, button, a {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Styling */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+/* Header */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #0056b3;
+    color: white;
+    padding: 10px 20px;
+}
+
+/* Logo Section */
+.logo a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+    padding: 5px 10px;
+    transition: background-color 0.3s ease;
+}
+
+.logo a:hover {
+    background-color: #003f7d;
+}
+
+.favicon {
+    width: 32px;
+    height: 32px;
+    margin-right: 10px;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    align-items: center;
+}
+
+.navbar a {
+    color: black;
+    margin: 0 10px;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 5px 10px;
+    transition: background-color 0.3s ease;
+}
+
+.navbar a:hover {
+    background-color: #003f7d;
+    text-decoration: underline;
+}
+
+/* Profile Icon */
+.profile {
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+}
+
+.profile-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+}
+
+.profile:hover {
+    background-color: #003f7d;
+}
+
+/* Form Styling */
+form {
+    margin-top: 10px;
+}
+
+
+/* General Styling */
+.main-content {
+    padding: 20px;
+}
+
+
+
+/* Footer */
+.footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .navbar {
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 10px;
+    }
+}

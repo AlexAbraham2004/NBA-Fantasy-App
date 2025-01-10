@@ -1,49 +1,104 @@
-<%- include("partials/header.ejs")%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/styles/global.css">
+  <link rel="stylesheet" href="/styles/homepage.css">
+  <title>NBA Fantasy</title>
+</head>
+<body>
+    <%- include("partials/navbar.ejs")%>
+</body>
 
 <main class="main-content">
     <!-- Hero Section -->
     <section id="home" class="hero">
-        <div class="hero-content">
-            <h1>Welcome to NBA Fantasy Tracker!</h1>
-            <p>
-                Your ultimate platform for real-time updates on your favorite NBA players. 
-                Get the latest game stats, including points scored, positions played, rebounds, assists, 
-                and more. Whether you're a fantasy league enthusiast or a passionate basketball fan, 
-                we've got you covered. Dive in, track your team, and dominate your league!
-            </p>
-            <div class="hero-buttons">
-                <a href="/players" class="btn">View Players</a>
-                <a href="/games" class="btn">View Games</a>
+        <h1 class="hero-title">Welcome to NBA Fantasy Tracker!</h1>
+        <div class="hero-content-wrapper">
+            <div class="hero-content">
+                <p>
+                    Your ultimate platform for real-time updates on your favorite NBA players. 
+                    Get the latest game stats, including points scored, positions played, rebounds, assists, 
+                    and more. Dive in, track your team, and dominate your league!
+                </p>
+                <div class="hero-buttons">
+                    <a href="/players" class="btn">View Players</a>
+                    <a href="/games" class="btn">View Games</a>
+                </div>
             </div>
-        </div>
-        <div class="hero-image">
-            <img src="/images/hero-image.jpg" alt="Basketball Players" />
+            <div class="hero-image">
+                <img src="/images/hero-image.jpg" alt="NBA Fantasy Tracker" />
+            </div>
         </div>
     </section>
 
-    <!-- My Players Section -->
-    <section id="players" class="players-section">
-        <h2>My Players</h2>
-    </section>
+    <div class="content-wrapper">
+        <div class="left-sections">
+            <!-- My Players Section -->
+            <section id="players" class="players-section">
+                <h2>My Players</h2>
+                <div class="players-list">
+                    <div class="player-card">
+                        <h3>LeBron James</h3>
+                        <p>Points: 27</p>
+                        <p>Rebounds: 8</p>
+                        <p>Assists: 9</p>
+                    </div>
+                    <div class="player-card">
+                        <h3>Steph Curry</h3>
+                        <p>Points: 30</p>
+                        <p>Rebounds: 5</p>
+                        <p>Assists: 6</p>
+                    </div>
+                    <div class="player-card">
+                        <h3>Kevin Durant</h3>
+                        <p>Points: 28</p>
+                        <p>Rebounds: 8</p>
+                        <p>Assists: 4</p>
+                    </div>
+                </div>
+            </section>
 
-    <!-- Most Common Players Section -->
-    <section id="complayers" class="common-players-section">
-        <h2>Most Common Players</h2>
-        <div class="common-players-list">
-            <div class="player-card">
-                <img src="/path-to-lebron-image.jpg" alt="LeBron James" />
-                <h3>LeBron James</h3>
-            </div>
-            <div class="player-card">
-                <img src="/path-to-steph-image.jpg" alt="Steph Curry" />
-                <h3>Steph Curry</h3>
-            </div>
-            <div class="player-card">
-                <img src="/path-to-durant-image.jpg" alt="Kevin Durant" />
-                <h3>Kevin Durant</h3>
-            </div>
+            <!-- Most Common Players Section -->
+            <section id="complayers" class="common-players-section">
+                <h2>Most Common Players</h2>
+                <div class="common-players-list">
+                    <div class="player-card">
+                        <h3>Giannis Antetokounmpo</h3>
+                        <p>Points: 31</p>
+                        <p>Rebounds: 12</p>
+                        <p>Assists: 5</p>
+                        <button class="btn add-btn">Add to My Players</button>
+                    </div>
+                    <div class="player-card">
+                        <h3>Joel Embiid</h3>
+                        <p>Points: 29</p>
+                        <p>Rebounds: 11</p>
+                        <p>Assists: 3</p>
+                        <button class="btn add-btn">Add to My Players</button>
+                    </div>
+                </div>
+            </section>
         </div>
-    </section>
+
+        <!-- Upcoming Games Section -->
+        <section id="upcoming-games" class="upcoming-games">
+            <h2>Upcoming Games</h2>
+            <div class="game-card">
+                <h3>Charlotte Hornets vs Detroit Pistons</h3>
+                <p>Date: 2022-02-12</p>
+                <p>Arena: Little Caesars Arena, Detroit, MI</p>
+                <p>Final Score: Hornets 141 - Pistons 119</p>
+            </div>
+            <div class="game-card">
+                <h3>Boston Celtics vs Miami Heat</h3>
+                <p>Date: 2022-02-13</p>
+                <p>Arena: TD Garden, Boston, MA</p>
+                <p>Final Score: Celtics 102 - Heat 98</p>
+            </div>
+        </section>
+    </div>
 </main>
 
 <%- include("partials/footer.ejs")%>
