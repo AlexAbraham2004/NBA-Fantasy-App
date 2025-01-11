@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NBA Teams</title>
+    <link rel="stylesheet" href="/styles/global.css">
+    <link rel="stylesheet" href="/styles/teams.css">
+</head>
+<body>
+    <%- include('../partials/navbar.ejs') %>
+
+    <main class="teams-page">
+        <h1>NBA Teams</h1>
+        <div class="teams-container">
+            <% teams.forEach(team => { %>
+                <div class="team-card">
+                    <img src="<%= team.logo %>" alt="<%= team.name %> Logo">
+                    <p><%= team.name %> (<%= team.city %>)</p>
+                </div>
+            <% }) %>
+        </div>
+    </main>
+
+    <%- include('../partials/footer.ejs') %>
+</body>
+</html>

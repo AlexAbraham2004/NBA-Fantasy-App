@@ -1,43 +1,52 @@
-<%- include("partials/header", { title: "My Players - NBA Fantasy Tracker", active: "players", customCSS: "players" }) %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/styles/global.css">
+  <link rel="stylesheet" href="/styles/players.css">
+  <title>NBA Fantasy - Players</title>
+</head>
+<body>
+    <%- include("../partials/navbar.ejs") %>
 
-<main class="main-content">
-    <!-- Player Search Section -->
-    <section id="search-players">
-        <h2>Search Players</h2>
-        <form action="/players" method="GET" class="search-form">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" placeholder="Enter player name">
+    <main class="main-content">
+        <!-- Player Search Section -->
+        <section id="search-players">
+            <h2>Search Players</h2>
+            <form action="/players" method="GET" class="search-form">
+                <label for="team">Team ID:</label>
+                <input type="number" id="team" name="team" placeholder="Enter team ID" required>
+        
+                <!-- Hidden input field for season -->
+                <input type="hidden" id="season" name="season" value="2024">
+                <button type="submit">Search</button>
+            </form>
+        </section>
+        
 
-            <label for="position">Position:</label>
-            <input type="text" id="position" name="position" placeholder="Enter position (e.g., G, F, C)">
+        <!-- Players List Section -->
+        <section id="players-list">
+            <h2>Player List</h2>
+            <div class="player-cards">
+                <% if (players && players.length) { %>
+                    <% players.forEach(player => { %>
+                        <div class="player-card">
+                            <h3><%= player.firstname %> <%= player.lastname %></h3>
+                            <p>Position: <%= player.leagues.standard?.pos || "N/A" %></p>
+                            <p>Height: <%= player.height.feets || "N/A" %>' <%= player.height.inches || "" %></p>
+                            <p>Weight: <%= player.weight.pounds || "N/A" %> lbs</p>
+                            <p>College: <%= player.college || "N/A" %></p>
+                            <p>Team Jersey: <%= player.leagues.standard?.jersey || "N/A" %></p>
+                        </div>
+                    <% }) %>
+                <% } else { %>
+                    <p>No players found for the specified team and season.</p>
+                <% } %>
+            </div>
+        </section>
+    </main>
 
-            <label for="height">Height:</label>
-            <input type="text" id="height" name="height" placeholder="Enter height (e.g., 6-5)">
-
-            <label for="draft-year">Draft Year:</label>
-            <input type="number" id="draft-year" name="draftYear" placeholder="Enter draft year">
-
-            <button type="submit">Search</button>
-        </form>
-    </section>
-
-    <!-- Players List Section -->
-    <section id="players-list">
-        <h2>Player List</h2>
-        <div class="player-cards">
-            <% players.forEach(player => { %>
-                <div class="player-card">
-                    <h3><%= player.first_name %> <%= player.last_name %></h3>
-                    <p>Position: <%= player.position %></p>
-                    <p>Height: <%= player.height %></p>
-                    <p>Weight: <%= player.weight %> lbs</p>
-                    <p>Draft Year: <%= player.draft_year || 'N/A' %></p>
-                    <p>Team: <%= player.team.full_name %> (<%= player.team.abbreviation %>)</p>
-                    <button class="watchlist-btn">Add to Watchlist</button>
-                </div>
-            <% }) %>
-        </div>
-    </section>
-</main>
-
-<%- include("../partials/footer.ejs") %>
+    <%- include("../partials/footer.ejs") %>
+</body>
+</html>

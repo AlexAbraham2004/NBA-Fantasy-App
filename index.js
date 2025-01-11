@@ -5,9 +5,12 @@ import dotenv from "dotenv";
 import serveFavicon from "serve-favicon";
 import { fileURLToPath } from "url";
 import path from "path";
+import fs from 'fs'; 
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
 
 dotenv.config({ path: ".env.local" });
 
@@ -36,8 +39,28 @@ app.get("/", async (req, res) => {
 
 // Players Route
 app.get("/players", async (req, res) => {
-    res.render("players/index.ejs");
+    const { team, season } = req.query; // Fetch team and season from query parameters
+    try {
+        const result = await axios.get(`${API_URL}players?team=${team}&season=${season}`, config);
+        res.render("players/index.ejs", { players: result.data.response });
+    } catch (error) {
+        console.error(error);
+        res.render("players/index.ejs", { players: [], error: "Unable to fetch players. Please try again." });
+    }
 });
+
+// Teams Route
+app.get("/teams", (req, res) => {
+    try {
+        const teamsData = JSON.parse(fs.readFileSync(path.join(__dirname, "data", "teams.json"), "utf8"));
+        const teams = teamsData.response;
+        res.render("teams/index.ejs", { teams });
+    } catch (error) {
+        console.error("Error reading teams data:", error);
+        res.render("teams/index.ejs", { teams: [], error: "Unable to load teams data. Please try again." });
+    }
+});
+
 
 // Games Route
 app.get("/games", async (req, res) => {
