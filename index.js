@@ -38,19 +38,32 @@ app.get("/", async (req, res) => {
     const idArray = [20, 265, 126, 2584]; // Array of player IDs
     const comPlayers = [];
 
+    const d = new Date(); 
+    const currYear = d.getFullYear();
+    const currMonth = String(d.getMonth() + 1).padStart(2, '0'); // Zero-padded month
+    const currDay = String(d.getDate()).padStart(2, '0'); // Zero-padded day
+    
+
+  
+
     try {
+        //Live Games
+        const resultGame = await axios.get(`${API_URL}games?date=${currYear}-${currMonth}-${currDay}`, config);
+        const games = resultGame.data.response;
+            console.log(games); 
+        
         // Fetch player data for all IDs using Promise.all
         const playerData = await Promise.all(
             idArray.map(async (id) => {
-                const result = await axios.get(`${API_URL}players?id=${id}`, config);
-                return result.data.response[0]; // Assuming the response is an array
+                const resultComPlayers = await axios.get(`${API_URL}players?id=${id}`, config);
+                return resultComPlayers.data.response[0]; // Assuming the response is an array
             })
         );
 
-        res.render("index.ejs", { comPlayers: playerData }); // Pass data as an object
+        res.render("index.ejs", { comPlayers: playerData , currentGames : games}); // Pass data as an object
     } catch (error) {
         console.error("Error fetching player data:", error);
-        res.render("index.ejs", { comPlayers: [], error: "Unable to fetch player data." });
+        res.render("index.ejs", { comPlayers: [], currentGames: [], error: "Unable to fetch player or game data." });
     }
 });
 

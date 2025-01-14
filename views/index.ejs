@@ -70,22 +70,43 @@
             </section>
         </div>
 
-        <!-- Upcoming Games Section -->
-        <section id="upcoming-games" class="upcoming-games">
-            <h2>Upcoming Games</h2>
-            <div class="game-card">
-                <h3>Charlotte Hornets vs Detroit Pistons</h3>
-                <p>Date: 2022-02-12</p>
-                <p>Arena: Little Caesars Arena, Detroit, MI</p>
-                <p>Final Score: Hornets 141 - Pistons 119</p>
+<!-- Upcoming Games Section -->
+<section id="upcoming-games" class="upcoming-games">
+    <h2>Upcoming Games</h2>
+    <% if (currentGames && currentGames.length) { %>
+      <% currentGames.forEach(game => { %>
+        <div class="game-card">
+          <!-- Top Logos -->
+          <div class="logos-container">
+            <!-- Visitor Team Logo -->
+            <div class="team-logo visitor-logo">
+              <img src="<%= game.teams.visitors.logo %>" alt="<%= game.teams.visitors.nickname %> Logo">
             </div>
-            <div class="game-card">
-                <h3>Boston Celtics vs Miami Heat</h3>
-                <p>Date: 2022-02-13</p>
-                <p>Arena: TD Garden, Boston, MA</p>
-                <p>Final Score: Celtics 102 - Heat 98</p>
+  
+            <!-- Home Team Logo -->
+            <div class="team-logo home-logo">
+              <img src="<%= game.teams.home.logo %>" alt="<%= game.teams.home.nickname %> Logo">
             </div>
-        </section>
+          </div>
+  
+          <!-- Game Details -->
+          <div class="game-details">
+            <h3><%= game.teams.visitors.nickname %> vs <%= game.teams.home.nickname %></h3>
+            <p><strong>Arena</strong> <%= game.arena.name %>, <%= game.arena.city %>, <%= game.arena.state %></p>
+            <% if (game.scores.visitors.points !== null && game.scores.home.points !== null) { %>
+              <p><strong>Final Score</strong>: <%= game.teams.visitors.nickname %> <%= game.scores.visitors.points %> - <%= game.scores.home.points %> <%= game.teams.home.nickname %></p>
+            <% } else { %>
+              <p>Game Status: <%= game.status.long %></p>
+            <% } %>
+          </div>
+        </div>
+      <% }) %>
+    <% } else { %>
+      <p>No upcoming games available.</p>
+    <% } %>
+  </section>
+  
+  
     </div>
 </main>
 

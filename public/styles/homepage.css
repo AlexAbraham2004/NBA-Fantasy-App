@@ -126,31 +126,76 @@
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.game-card {
-    margin-bottom: 15px;
-    padding: 10px;
+  }
+  
+  .game-card {
+    position: relative;
+    padding: 20px;
     background: white;
     border: 1px solid #ddd;
-    border-radius: 5px;
+    border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    text-align: center;
+    margin-bottom: 20px;
     transition: transform 0.3s ease;
-}
-
-.game-card:hover {
+    text-align: center;
+  }
+  
+  .game-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-}
-
+  }
+  
+  .logos-container {
+    display: flex;
+    justify-content: space-between; /* Align logos to the left and right */
+    align-items: center; /* Vertically center the logos */
+    margin-bottom: 20px; /* Add spacing below logos */
+  }
+  
+  .team-logo {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .team-logo img {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 50%;
+  }
+  
+  .game-details {
+    margin-top: 10px; /* Adds space between logos and game details */
+  }
+  
+    
 /* Responsive Design */
 @media (max-width: 768px) {
+    .logos-container {
+        flex-direction: row;
+        justify-content: space-around;
+      }
+    
+      .team-logo {
+        margin: 10px;
+      }
+    
+
+
     .content-wrapper {
         flex-direction: column;
     }
 
     .players-list, .common-players-list {
         justify-content: center;
+    }
+
+    .game-card {
+        flex-direction: column;
+        text-align: center;
+    }
+
+
+    .game-details {
+        padding: 10px 0;
     }
 }
