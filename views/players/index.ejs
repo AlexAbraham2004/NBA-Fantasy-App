@@ -11,19 +11,9 @@
     <%- include("../partials/navbar.ejs") %>
 
     <main class="main-content">
-        <!-- Player Search Section -->
-        <section id="search-players">
-            <h2>Search Players</h2>
-            <form action="/players" method="GET" class="search-form">
-                <label for="team">Team ID:</label>
-                <input type="number" id="team" name="team" placeholder="Enter team ID" required>
-        
-                <!-- Hidden input field for season -->
-                <input type="hidden" id="season" name="season" value="2024">
-                <button type="submit">Search</button>
-            </form>
-        </section>
-        
+        <header class="team-header">
+            <h1>Players for Team ID: <%= teamName %></h1>
+        </header>
 
         <!-- Players List Section -->
         <section id="players-list">
@@ -35,9 +25,9 @@
                             <h3><%= player.firstname %> <%= player.lastname %></h3>
                             <p>Position: <%= player.leagues.standard?.pos || "N/A" %></p>
                             <p>Height: <%= player.height.feets || "N/A" %>' <%= player.height.inches || "" %></p>
-                            <p>Weight: <%= player.weight.pounds || "N/A" %> lbs</p>
-                            <p>College: <%= player.college || "N/A" %></p>
-                            <p>Team Jersey: <%= player.leagues.standard?.jersey || "N/A" %></p>
+                            <p>Jersey Number: <%= player.leagues.standard?.jersey || "N/A" %></p>
+                            <button class="watchlist-btn">Add to Watchlist</button>
+
                         </div>
                     <% }) %>
                 <% } else { %>

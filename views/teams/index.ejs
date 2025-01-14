@@ -11,14 +11,40 @@
 
     <main class="teams-page">
         <h1>NBA Teams</h1>
-        <div class="teams-container">
-            <% teams.forEach(team => { %>
-                <div class="team-card">
-                    <img src="<%= team.logo %>" alt="<%= team.name %> Logo">
-                    <p><%= team.name %> (<%= team.city %>)</p>
-                </div>
-            <% }) %>
-        </div>
+
+        <!-- Eastern Conference Section -->
+        <section class="conference-section">
+            <h2>Eastern Conference</h2>
+            <div class="teams-container">
+                <% teams.forEach(team => { %>
+                    <% if (team.leagues.standard.conference === "East") { %>
+                        <form action="/teams/<%= team.id %>/players" method="GET">
+                            <button class="team-card">
+                                <img src="<%= team.logo %>" alt="<%= team.name %> Logo">
+                                <p><%= team.name %></p>
+                            </button>
+                        </form>
+                    <% } %>
+                <% }) %>
+            </div>
+        </section>
+
+        <!-- Western Conference Section -->
+        <section class="conference-section">
+            <h2>Western Conference</h2>
+            <div class="teams-container">
+                <% teams.forEach(team => { %>
+                    <% if (team.leagues.standard.conference === "West") { %>
+                        <form action="/teams/<%= team.id %>/players" method="GET">
+                            <button class="team-card">
+                                <img src="<%= team.logo %>" alt="<%= team.name %> Logo">
+                                <p><%= team.name %></p>
+                            </button>
+                        </form>
+                    <% } %>
+                <% }) %>
+            </div>
+        </section>
     </main>
 
     <%- include('../partials/footer.ejs') %>

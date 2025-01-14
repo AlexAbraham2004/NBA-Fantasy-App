@@ -38,16 +38,31 @@ app.get("/", async (req, res) => {
 });
 
 // Players Route
-app.get("/players", async (req, res) => {
-    const { team, season } = req.query; // Fetch team and season from query parameters
+app.get("/teams/:id/players", async (req, res) => {
+    const { id: teamId } = req.params; // Get team ID from the URL
+    const season = 2024; // Hardcoded or dynamically set season
+
     try {
-        const result = await axios.get(`${API_URL}players?team=${team}&season=${season}`, config);
-        res.render("players/index.ejs", { players: result.data.response });
+        // Fetch player data for the specified team and season
+        const result = await axios.get(`${API_URL}players?team=${teamId}&season=${season}`, config);
+        const players = result.data.response;
+
+        // Fetch team data from the local teams.json file
+        const teamsData = JSON.parse(fs.readFileSync(path.join(__dirname, "data", "teams.json"), "utf8"));
+        const team = teamsData.response.find(t => t.id == teamId);
+
+        if (!team) {
+            throw new Error("Team not found");
+        }
+
+        // Pass the team name and players data to the template
+        res.render("players/index.ejs", { players, teamName: team.name });
     } catch (error) {
-        console.error(error);
-        res.render("players/index.ejs", { players: [], error: "Unable to fetch players. Please try again." });
+        console.error("Error fetching players data:", error);
+        res.render("players/index.ejs", { players: [], teamName: "Unknown Team", error: "Unable to fetch players. Please try again." });
     }
 });
+
 
 // Teams Route
 app.get("/teams", (req, res) => {
