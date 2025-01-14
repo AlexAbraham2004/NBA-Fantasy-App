@@ -64,5 +64,5 @@ This project uses the [NBA API](https://rapidapi.com/api-sports/api/api-nba/) to
 This project is licensed under the MIT License.
 
 ## Author
-Developed by [Your Name]. Feel free to contribute to the project or reach out for collaboration!
+Developed by Alex Abraham. Feel free to contribute to the project or reach out for collaboration!
 
