@@ -33,9 +33,27 @@ const config = {
 };
 
 // Home Route
+// Home Route
 app.get("/", async (req, res) => {
-    res.render("index.ejs");
+    const idArray = [20, 265, 126, 2584]; // Array of player IDs
+    const comPlayers = [];
+
+    try {
+        // Fetch player data for all IDs using Promise.all
+        const playerData = await Promise.all(
+            idArray.map(async (id) => {
+                const result = await axios.get(`${API_URL}players?id=${id}`, config);
+                return result.data.response[0]; // Assuming the response is an array
+            })
+        );
+
+        res.render("index.ejs", { comPlayers: playerData }); // Pass data as an object
+    } catch (error) {
+        console.error("Error fetching player data:", error);
+        res.render("index.ejs", { comPlayers: [], error: "Unable to fetch player data." });
+    }
 });
+
 
 // Players Route
 app.get("/teams/:id/players", async (req, res) => {

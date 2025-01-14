@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/styles/global.css">
+  <link rel="stylesheet" href="/styles/players.css">
   <link rel="stylesheet" href="/styles/homepage.css">
   <title>NBA Fantasy</title>
 </head>
@@ -64,20 +65,7 @@
             <section id="commonplayers" class="common-players-section">
                 <h2>Most Common Players</h2>
                 <div class="common-players-list">
-                    <div class="player-card">
-                        <h3>Giannis Antetokounmpo</h3>
-                        <p>Points: 31</p>
-                        <p>Rebounds: 12</p>
-                        <p>Assists: 5</p>
-                        <button class="btn add-btn">Add to My Players</button>
-                    </div>
-                    <div class="player-card">
-                        <h3>Joel Embiid</h3>
-                        <p>Points: 29</p>
-                        <p>Rebounds: 11</p>
-                        <p>Assists: 3</p>
-                        <button class="btn add-btn">Add to My Players</button>
-                    </div>
+                    <%- include('./partials/player-card', { players: comPlayers }) %>
                 </div>
             </section>
         </div>
