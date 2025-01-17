@@ -36,7 +36,6 @@ const config = {
 // Home Route
 app.get("/", async (req, res) => {
     const idArray = [20, 265, 126, 2584]; // Array of player IDs
-    const comPlayers = [];
 
     const d = new Date(); 
     const currYear = d.getFullYear();
@@ -49,7 +48,12 @@ app.get("/", async (req, res) => {
         const resultGame = await axios.get(`${API_URL}games?date=${currYear}-${currMonth}-${currDay}`, config);
         const games = resultGame.data.response;
             console.log(games); 
-        
+
+        const sortedGames = games.sort((a, b) => {
+            const statusOrder = { "In Play": 1, "Scheduled": 2, "Finished": 3 };
+            return statusOrder[a.status.long] - statusOrder[b.status.long];
+        });
+    
         // Fetch player data for all IDs using Promise.all
         const playerData = await Promise.all(
             idArray.map(async (id) => {
@@ -58,7 +62,7 @@ app.get("/", async (req, res) => {
             })
         );
 
-        res.render("index.ejs", { comPlayers: playerData , currentGames : games}); // Pass data as an object
+        res.render("index.ejs", { comPlayers: playerData , currentGames : sortedGames}); // Pass data as an object
     } catch (error) {
         console.error("Error fetching player data:", error);
         res.render("index.ejs", { comPlayers: [], currentGames: [], error: "Unable to fetch player or game data." });

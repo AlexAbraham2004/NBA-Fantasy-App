@@ -84,7 +84,7 @@
     gap: 20px;
 }
 
-/* My Players Section */
+/* Players Section */
 .players-section, .common-players-section {
     background: #fff;
     padding: 20px;
@@ -119,16 +119,16 @@
     margin-bottom: 10px;
 }
 
-/* Upcoming Games Section */
+/* Games Section */
 .upcoming-games {
     flex: 1;
     background: #f9f9f9;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .game-card {
+}
+
+.game-card {
     position: relative;
     padding: 20px;
     background: white;
@@ -138,49 +138,74 @@
     margin-bottom: 20px;
     transition: transform 0.3s ease;
     text-align: center;
-  }
-  
-  .game-card:hover {
+}
+
+.game-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-  }
-  
-  .logos-container {
+}
+
+/* Logos Container */
+.logos-container {
     display: flex;
     justify-content: space-between; /* Align logos to the left and right */
     align-items: center; /* Vertically center the logos */
     margin-bottom: 20px; /* Add spacing below logos */
-  }
-  
-  .team-logo {
+}
+
+.team-logo {
     width: 50px;
     height: 50px;
-  }
-  
-  .team-logo img {
+}
+
+.team-logo img {
     max-width: 100%;
     max-height: 100%;
     border-radius: 50%;
-  }
-  
-  .game-details {
+}
+
+/* Game Details */
+.game-details {
     margin-top: 10px; /* Adds space between logos and game details */
-  }
-  
-    
+}
+
+.game-details p {
+    margin: 5px 0;
+}
+
+/* Game Status Styles */
+.game-status {
+    font-weight: bold;
+    font-size: 1rem;
+    margin: 10px 0;
+}
+
+/* Specific Status Colors */
+.game-status.in-progress {
+    color: #28a745; /* Green for in-progress */
+    animation: blink 1.5s infinite;
+}
+
+.game-status.completed {
+    color: #dc3545; /* Red for completed */
+}
+
+.game-status.upcoming {
+    color: #007bff; /* Blue for upcoming */
+}
+
+/* Blinking Animation */
+@keyframes blink {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
-    .logos-container {
-        flex-direction: row;
-        justify-content: space-around;
-      }
-    
-      .team-logo {
-        margin: 10px;
-      }
-    
-
-
     .content-wrapper {
         flex-direction: column;
     }
@@ -194,6 +219,14 @@
         text-align: center;
     }
 
+    .logos-container {
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+    .team-logo {
+        margin: 10px;
+    }
 
     .game-details {
         padding: 10px 0;
