@@ -1,15 +1,21 @@
 <div class="player-cards">
     <% if (players && players.length) { %>
         <% players.forEach(player => { %>
-            <div class="player-card">
-                <h3><%= player.firstname %> <%= player.lastname %></h3>
+            <div class="player-card" data-player-id="<%= player.id %>">
+                <!-- Player Name Button -->
+                <button class="details-btn">
+                    <h3 class="player-name"><%= player.firstname %> <%= player.lastname %></h3>
+                </button>
+
+                <!-- Player Info -->
                 <p>Position: <%= player.leagues.standard?.pos || "N/A" %></p>
                 <p>Height: <%= player.height.feets || "N/A" %>' <%= player.height.inches || "" %></p>
                 <p>Jersey Number: <%= player.leagues.standard?.jersey || "N/A" %></p>
-                <button class="watchlist-btn">Add to Watchlist</button>
 
+                <button class="watchlist-btn">Add to Watchlist</button>
             </div>
         <% }) %>
     <% } else { %>
         <p>No players found for the specified team and season.</p>
     <% } %>
+</div>

@@ -1,25 +1,25 @@
-
 /* Player Cards */
 .player-cards {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
+    justify-content: center;
 }
 
 .player-card {
-    width: 200px;
-    background: white;
+    width: 220px;
+    background: #ffffff;
     padding: 15px;
     border: 1px solid #ddd;
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     text-align: center;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .player-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
 .player-card h3 {
@@ -28,16 +28,65 @@
     margin-bottom: 10px;
 }
 
+.player-card img {
+    width: 100%;
+    border-radius: 50%;
+    margin-bottom: 15px;
+}
+
+/* Buttons */
 .watchlist-btn {
-    background-color: #28a745;
+    margin-top: 10px;
+    padding: 10px 15px;
+    background-color: #0c8d00;
     color: white;
     border: none;
-    padding: 10px;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    font-size: 1rem;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .watchlist-btn:hover {
-    background-color: #218838;
+    background-color: #003f7d;
+    transform: translateY(-2px);
+}
+
+.details-btn {
+    background: none;
+    border: none;
+    color: #0056b3;
+    cursor: pointer;
+    font-size: 1.2rem;
+    text-align: center;
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.details-btn:hover {
+    color: #003f7d;
+    transform: scale(1.05);
+}
+
+.details-btn:focus,
+.watchlist-btn:focus {
+    outline: 2px solid #0056b3;
+    outline-offset: 2px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .player-cards {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .player-card {
+        width: 90%;
+    }
+}
+
+@media (max-width: 480px) {
+    .player-card {
+        width: 100%;
+    }
 }

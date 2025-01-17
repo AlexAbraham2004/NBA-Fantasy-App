@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="/scripts/player-modal.js"></script>
+
+  <link rel="stylesheet" href="/styles/modal.css">
   <link rel="stylesheet" href="/styles/global.css">
   <link rel="stylesheet" href="/styles/players.css">
   <link rel="stylesheet" href="/styles/homepage.css">
@@ -69,54 +72,12 @@
                 </div>
             </section>
         </div>
+                
 
-        <section id="games" class="games-section">
-          <h2>Games</h2>
-          <% if (currentGames && currentGames.length) { %>
-            <% currentGames.forEach(game => { %>
-              <div class="game-card">
-                <!-- Top Logos -->
-                <div class="logos-container">
-                  <!-- Visitor Team Logo -->
-                  <div class="team-logo visitor-logo">
-                    <img src="<%= game.teams.visitors.logo %>" alt="<%= game.teams.visitors.nickname %> Logo">
-                  </div>
-        
-                  <!-- Home Team Logo -->
-                  <div class="team-logo home-logo">
-                    <img src="<%= game.teams.home.logo %>" alt="<%= game.teams.home.nickname %> Logo">
-                  </div>
-                </div>
-        
-                <!-- Game Details -->
-                <div class="game-details">
-                  <h4><%= game.teams.visitors.nickname %> vs <%= game.teams.home.nickname %></h4>
-                  <% if (game.scores.visitors.points !== null && game.scores.home.points !== null) { %>
-                    <p><strong>Score</strong>: <%= game.teams.visitors.nickname %> <%= game.scores.visitors.points %> - <%= game.scores.home.points %> <%= game.teams.home.nickname %></p>
-                  <% } %>
-        
-                  <!-- Game Status -->
-                  <% if (game.status.short === 2) { %>
-                    <p class="game-status in-progress">In Progress</p>
-                  <% } else if (game.status.short === 3) { %>
-                    <p class="game-status completed">Completed</p>
-                  <% } else if (game.status.short === 1) { %>
-                    <p class="game-status upcoming">Upcoming</p>
-                  <% } %>
-        
-                  <p><strong>Arena</strong>: <%= game.arena.name %>, <%= game.arena.city %>, <%= game.arena.state %></p>
-                  <% if (game.date.start) { %>
-                    <p><strong>Start Time</strong>: <%= new Date(game.date.start).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) %></p>
-                  <% } %>
-                </div>
-              </div>
-            <% }) %>
-          <% } else { %>
-            <p>No games available.</p>
-          <% } %>
-        </section>
-        
-  
+        <%- include("partials/gameCards")%>
+
+      <%- include("partials/modal.ejs")%>
+      
     </div>
 </main>
 

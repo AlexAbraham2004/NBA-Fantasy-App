@@ -1,0 +1,43 @@
+<aside class="right-section">
+    <section id="games" class="games-section">
+        <h2>Upcoming Games</h2>
+        <% if (currentGames && currentGames.length) { %>
+            <% currentGames.forEach(game => { %>
+                <div class="game-card">
+                    <!-- Logos and Team Names -->
+                    <div class="team-container">
+                        <!-- Visitor Team -->
+                        <div class="team-row">
+                            <img src="<%= game.teams.visitors.logo %>" alt="<%= game.teams.visitors.nickname %> Logo" class="team-logo">
+                            <span class="team-name"><%= game.teams.visitors.nickname %></span>
+                        </div>
+
+                        <!-- Home Team -->
+                        <div class="team-row">
+                            <img src="<%= game.teams.home.logo %>" alt="<%= game.teams.home.nickname %> Logo" class="team-logo">
+                            <span class="team-name home-team"><%= game.teams.home.nickname %></span>
+                        </div>
+                    </div>
+
+                    <!-- Divider -->
+                    <div class="divider"></div>
+
+                    <!-- Game Status -->
+                    <div class="game-status">
+                        <% if (game.status.short === 1) { %>
+                            <span class="start-time upcoming"><%= new Date(game.date.start).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) %></span>
+                        <% } else if (game.status.short === 2) { %>
+                            <span class="score in-progress"><%= game.scores.visitors.points %> - <%= game.scores.home.points %></span>
+                            <span class="remaining-time in-progress">In Progress</span>
+                        <% } else if (game.status.short === 3) { %>
+                            <span class="score completed"><%= game.scores.visitors.points %> - <%= game.scores.home.points %></span>
+                            <span class="final-text completed">Final</span>
+                        <% } %>
+                    </div>
+                </div>
+            <% }) %>
+        <% } else { %>
+            <p>No games available.</p>
+        <% } %>
+    </section>
+</aside>
