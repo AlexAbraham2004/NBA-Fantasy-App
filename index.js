@@ -41,11 +41,9 @@ app.get("/", async (req, res) => {
     const d = new Date(); 
     const currYear = d.getFullYear();
     const currMonth = String(d.getMonth() + 1).padStart(2, '0'); // Zero-padded month
-    const currDay = String(d.getDate()).padStart(2, '0'); // Zero-padded day
+    const currDay = String(d.getDate() + 1).padStart(2, '0'); // Zero-padded day
+    console.log(currDay + "  " + currMonth + "   " + currYear); 
     
-
-  
-
     try {
         //Live Games
         const resultGame = await axios.get(`${API_URL}games?date=${currYear}-${currMonth}-${currDay}`, config);
