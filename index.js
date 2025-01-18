@@ -6,7 +6,9 @@ import dotenv from "dotenv";
 import serveFavicon from "serve-favicon";
 import { fileURLToPath } from "url";
 import path from "path";
-import fs from "fs";
+import { apiConfig } from "./utils/apiConfig.js";
+import { processGames } from "./utils/games.js";
+import { getTeamsMap, getTeamById, getTeamsData } from "./utils/teams.js"; // Import teams.js utilities
 
 // File path setup for ESM compatibility
 const __filename = fileURLToPath(import.meta.url);
@@ -33,14 +35,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
-// Configuration for RapidAPI requests
-const config = {
-  headers: {
-    "x-rapidapi-host": process.env.NBA_HOST,
-    "x-rapidapi-key": process.env.NBA_KEY,
-  },
-};
-
 // --------------------------------------------------
 // ROUTE: Home ("/")
 // Displays live games and example players
@@ -49,29 +43,29 @@ app.get("/", async (req, res) => {
   const idArray = [20, 265, 126, 2584]; // Example player IDs to fetch
   const d = new Date();
   const currYear = d.getFullYear();
-  const currMonth = String(d.getMonth() + 1).padStart(2, "0"); // Format month with leading zero
-  const currDay = String(d.getDate() + 1).padStart(2, "0"); // Format day with leading zero
+  const currMonth = String(d.getMonth() + 1).padStart(2, "0");
+  const currDay = String(d.getDate() + 1).padStart(2, "0");
 
   try {
     // Fetch live games happening today
     const resultGame = await axios.get(
       `${API_URL}games?date=${currYear}-${currMonth}-${currDay}`,
-      config
+      apiConfig
     );
     const games = resultGame.data.response;
 
-    // Sort games by their status (In Play, Scheduled, Finished)
-    const sortedGames = games.sort((a, b) => {
-      const statusOrder = { "In Play": 1, "Scheduled": 2, "Finished": 3 };
-      return statusOrder[a.status.long] - statusOrder[b.status.long];
-    });
+    // Use getTeamsMap from teams.js
+    const teamsMap = getTeamsMap();
+
+    // Process games using processGames utility
+    const updatedGames = processGames(games, teamsMap);
 
     // Fetch details for the common players (idArray)
     const playerData = await Promise.all(
       idArray.map(async (id) => {
         const resultComPlayers = await axios.get(
           `${API_URL}players?id=${id}`,
-          config
+          apiConfig
         );
         return resultComPlayers.data.response[0]; // Return the first response
       })
@@ -80,7 +74,7 @@ app.get("/", async (req, res) => {
     // Render the homepage with players and game data
     res.render("index.ejs", {
       comPlayers: playerData,
-      currentGames: sortedGames,
+      currentGames: updatedGames,
     });
   } catch (error) {
     console.error("Error fetching player or game data:", error);
@@ -91,6 +85,7 @@ app.get("/", async (req, res) => {
     });
   }
 });
+
 
 // --------------------------------------------------
 // ROUTE: Player Details ("/api/player-details")
@@ -104,10 +99,13 @@ app.get("/api/player-details", async (req, res) => {
   }
 
   try {
+    // Use getTeamsMap from teams.js
+    const teamsMap = getTeamsMap();
+
     // Fetch player statistics for the season
     const response = await axios.get(
       `${API_URL}players/statistics?id=${id}&season=2024`,
-      config
+      apiConfig
     );
     const allGames = response.data.response;
 
@@ -116,13 +114,14 @@ app.get("/api/player-details", async (req, res) => {
         player: {},
         team: {},
         recentGames: [],
-        position: "N/A", // Default if no games available
+        position: "N/A",
       });
     }
 
     // Extract basic player and team info
     const player = allGames[0].player || {};
-    const team = allGames[0].team || {};
+    const teamId = allGames[0].team?.id;
+    const team = teamsMap[teamId] || {};
 
     // Extract the player's position from the games
     const playerPosition = allGames.find((game) => game.pos)?.pos || "N/A";
@@ -136,7 +135,7 @@ app.get("/api/player-details", async (req, res) => {
         const gameId = stat.game.id;
         const gameResponse = await axios.get(
           `${API_URL}games?id=${gameId}`,
-          config
+          apiConfig
         );
         const gameInfo = gameResponse?.data?.response?.[0];
         const gameDate = gameInfo?.date?.start;
@@ -163,8 +162,8 @@ app.get("/api/player-details", async (req, res) => {
         lastname: player.lastname,
       },
       team: {
-        name: team.name,
-        logo: team.logo,
+        name: team.name || "Unknown Team",
+        logo: team.logo || "./images/unknown-image.jpg",
       },
       position: playerPosition,
       recentGames: recentGamesWithDate,
@@ -187,15 +186,13 @@ app.get("/teams/:id/players", async (req, res) => {
     // Fetch players on the specified team
     const result = await axios.get(
       `${API_URL}players?team=${teamId}&season=${season}`,
-      config
+      apiConfig // Use apiConfig instead of config
     );
     const players = result.data.response;
 
     // Read team details from a local file
-    const teamsData = JSON.parse(
-      fs.readFileSync(path.join(__dirname, "data", "teams.json"), "utf8")
-    );
-    const team = teamsData.response.find((t) => t.id == teamId);
+    const teamsData = getTeamsData(); // Use utility to fetch teams data
+    const team = teamsData.find((t) => t.id == teamId);
 
     if (!team) {
       console.error("Team not found in teams.json");
@@ -214,28 +211,27 @@ app.get("/teams/:id/players", async (req, res) => {
   }
 });
 
+
 // --------------------------------------------------
 // ROUTE: Teams List ("/teams")
 // Displays a list of all teams
 // --------------------------------------------------
 app.get("/teams", (req, res) => {
   try {
-    // Read teams from a local JSON file
-    const teamsData = JSON.parse(
-      fs.readFileSync(path.join(__dirname, "data", "teams.json"), "utf8")
-    );
-    const teams = teamsData.response;
+    // Fetch teams using the utility
+    const teams = getTeamsData();
 
     // Render the teams list page
     res.render("teams/index.ejs", { teams });
   } catch (error) {
-    console.error("Error reading teams data:", error);
+    console.error("Error reading teams data:", error.message);
     res.render("teams/index.ejs", {
       teams: [],
       error: "Unable to load teams data. Please try again.",
     });
   }
 });
+
 
 // --------------------------------------------------
 // ROUTE: Games List ("/games")

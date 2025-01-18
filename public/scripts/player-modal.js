@@ -38,7 +38,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 // Populate the modal header with player details
                 playerName.textContent = `${data.player.firstname} ${data.player.lastname}`; // Display player's full name
-                playerLogo.src = data.team.logo || "/images/placeholder.png"; // Display team logo (or placeholder if missing)
+                playerLogo.src = data.team.logo || "./images/unknown-image.jpg"; // Display team logo (or placeholder if missing)
+                console.log(data.team.logo);
                 playerTeam.textContent = data.team.name; // Display team name
 
                 // Display the player's position (if available)
