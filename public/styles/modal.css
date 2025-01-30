@@ -1,5 +1,3 @@
-/* public/styles/modal.css */
-
 /* Modal styles */
 .modal {
     display: none; /* Hidden by default */
@@ -7,7 +5,7 @@
     z-index: 1000;
     left: 0;
     top: 0;
-    width: 100%;
+    width: 110%;
     height: 100%;
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
@@ -29,38 +27,112 @@
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
-.modal-content h2 {
-    font-size: 1.5rem;
-    color: #0056b3;
-    text-align: center;
-    margin-bottom: 20px;
+/* Player Container */
+.player-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    border-bottom: 2px solid lightgrey;
+    padding-bottom: 10px;
 }
 
+/* Left side: Player image placeholder */
+.player-image {
+    width: 35%;
+    height: 250px; /* Adjust as needed */
+    background-color: black; /* Temporary placeholder */
+    border-radius: 10px 0 0 10px;
+}
+
+/* Right side: Player Info */
+.player-info {
+    flex-grow: 1;
+    text-align: center;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px; /* Adds spacing between elements */
+}
+
+
+/* Enlarged Player Name */
+.player-name {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #0056b3;
+    margin-bottom: 5px;
+}
+
+/* Team Name */
+.player-team {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+/* Position */
+.player-positions {
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+/* Ranking Placeholder */
+.player-ranking {
+    font-size: 1rem;
+    color: grey;
+}
+
+/* Team Logo */
+.player-logo {
+    width: 80px;
+    height: auto;
+    margin-top: 10px;
+}
+
+/* Position Jersey Number in Top Right */
+.player-jersey {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #333;
+    background: white; /* Keeps readability */
+    padding: 5px 10px;
+    align-self: center; /* Keeps it centered on smaller screens */
+}
+
+
+
 /* Game log table styles */
-.game-log table {
+.game-log table, .season-log table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
 }
 
 .game-log th,
-.game-log td {
+.game-log td,
+.season-log th,
+.season-log td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: center;
     font-size: 0.9rem;
 }
 
-.game-log th {
+.game-log th,
+.season-log th {
     background-color: #f4f4f4;
     font-weight: bold;
 }
 
-.game-log tbody tr:nth-child(even) {
+.game-log tbody tr:nth-child(even),
+.season-log tbody tr:nth-child(even) {
     background-color: #f9f9f9;
 }
 
-.game-log tbody tr:hover {
+.game-log tbody tr:hover, 
+.season-log tbody tr:hover {
     background-color: #f1f1f1;
 }
 

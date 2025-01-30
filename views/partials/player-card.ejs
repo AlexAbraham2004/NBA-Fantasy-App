@@ -1,8 +1,10 @@
 <div class="player-cards">
     <% if (players && players.length) { %>
         <% players.forEach(player => { %>
-            <div class="player-card" data-player-id="<%= player.id %>">
-                <!-- Player Name Button -->
+            <div class="player-card" 
+            data-player-id="<%= player.id %>" 
+            data-jersey="<%= player.leagues.standard?.jersey || 'N/A' %>">
+                       <!-- Player Name Button -->
                 <button class="details-btn">
                     <h3 class="player-name"><%= player.firstname %> <%= player.lastname %></h3>
                 </button>
